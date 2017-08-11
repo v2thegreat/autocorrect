@@ -99,15 +99,13 @@ def get_case(word, correction):
     imho => IMHO
 
     """
-    if word.istitle():
+    if word.istitle() or len(word)>2 and word[:2].isupper():
         return correction.title()
-    if word.isupper():
+    elif word.isupper():
         return correction.upper()
-    if correction == word and not word.islower():
+    elif correction == word and not word.islower():
         return word
-    if len(word) > 2 and word[:2].isupper():
-        return correction.title()
-    if not known_as_lower([correction]): #expensive
+    elif not known_as_lower([correction]): #expensive
         try:
             return CASE_MAPPED[correction]
         except KeyError:
